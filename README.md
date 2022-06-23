@@ -1,0 +1,2 @@
+# QT_Educational_Manage_System
+QT实现教务管理系统
