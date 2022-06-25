@@ -43,6 +43,7 @@ SOURCES += \
 
 HEADERS += \
     Education/course.h \
+    Education/initDataBass.h \
     Education/institute.h \
     Education/manager.h \
     Education/student.h \
