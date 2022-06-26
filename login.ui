@@ -352,6 +352,13 @@
       </property>
      </spacer>
     </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="btnAddInstitute">
+      <property name="text">
+       <string>添加学院</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">

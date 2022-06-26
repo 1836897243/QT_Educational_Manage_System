@@ -1,4 +1,4 @@
-#ifndef LOGIN_H
+﻿#ifndef LOGIN_H
 #define LOGIN_H
 
 #include <QMainWindow>
@@ -21,6 +21,8 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_pushButton_2_clicked();
+
+    void on_btnAddInstitute_clicked();
 
 private:
     Ui::Login *ui;

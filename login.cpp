@@ -1,4 +1,4 @@
-#include "login.h"
+﻿#include "login.h"
 #include "ui_login.h"
 #include "mainwindow.h"
 #include "student_sign.h"
@@ -10,8 +10,12 @@
 #include "Education/student.h"
 #include "Education/teacher.h"
 #include "Education/manager.h"
+#include "Education/institute.h"
 #include <QMessageBox>
-
+#include<QDialogButtonBox>
+#include<QSpinBox>
+#include<QDoubleSpinBox>
+#include<QFormLayout>
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Login)
@@ -94,5 +98,42 @@ void Login::on_pushButton_2_clicked()
         else{
             QMessageBox::warning(this,"警告",QString::fromStdString(Manager::Login(Account,Password).second));
         }
+    }
+}
+
+void Login::on_btnAddInstitute_clicked()
+{
+    QDialog dialog(this);
+    QFormLayout form(&dialog);
+    form.addRow(new QLabel("User input:"));
+    // 学院名称
+    QString IName = QString("学院名称: ");
+    QLineEdit LEIName(&dialog);
+    form.addRow(IName, &LEIName);
+
+    // 学院楼
+    QString IBuilding = QString("学院楼: ");
+    QLineEdit LEIBuilding(&dialog);
+    form.addRow(IBuilding, &LEIBuilding);
+
+    // 学院预算
+    QString IBudget = QString("学院预算(万): ");
+    QDoubleSpinBox SPIBudget(&dialog);
+    SPIBudget.setMaximum(1000000000);
+    form.addRow(IBudget, &SPIBudget);
+
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+        Qt::Horizontal, &dialog);
+    form.addRow(&buttonBox);
+    QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+    if (dialog.exec() == QDialog::Accepted) {
+        Institute I(LEIName.text().toStdString(),LEIBuilding.text().toStdString(),SPIBudget.value());
+        if(I.insert2DB())
+        {
+            QMessageBox::information(this,"通知","添加成功");
+        }
+        else
+            QMessageBox::warning(this,"警告","添加失败");
     }
 }
